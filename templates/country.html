@@ -1,0 +1,17 @@
+{% include "base.html"%} {% block content %}
+
+<main class="container">
+  <img style="width:300px; " src="{{country['coat_of_arms']}}">
+  <h2>{{country['common_name']}}</h2>
+  <p>{{country['native_name']}}</p>
+  <p>{{country['languages']}}</p>
+  <p>{{country['population']}}</p>
+  <p>{{country['capital']}}</p>
+
+  {% for neighbour in neighbours%}
+     <a class="btn btn-secondary" href="/country/{{neighbour|lower}}">{{neighbour}}</a>
+  {% endfor %}
+
+</main>
+
+{% endblock %}
