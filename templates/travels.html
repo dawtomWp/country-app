@@ -1,0 +1,68 @@
+{% include "base.html"%} {% block content %}
+
+<div>
+  <h1>My Travels</h1>
+  {% for travel in travels %}
+
+  <div>
+    <h3>{{travel['title']}}</h3>
+    <a class="btn btn-primary" href="/edit-travel/{{travel['_id']}}">Edit</a>
+
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-danger"
+      data-bs-toggle="modal"
+      data-bs-target="#id-{{travel['_id']}}"
+    >
+      DELETE
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="id-{{travel['_id']}}"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETE</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Do you really want delete travel: {{travel['title']}}?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <form method="POST" action="/api/delete-travel">
+              <input
+                name="id_to_delete"
+                value="{{travel['_id']}}"
+                type="hidden"
+              />
+              <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor%}
+</div>
+
+{% endblock %}
